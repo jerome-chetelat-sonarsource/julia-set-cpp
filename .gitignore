@@ -1,0 +1,8 @@
+sonar-project.properties
+.DS_Store
+
+*.o
+*.d
+julia_set
+program
+output

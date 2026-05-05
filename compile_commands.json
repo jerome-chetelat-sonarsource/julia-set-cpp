@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "~/Documents/projects/julia-set-cpp/",
+    "command": "c++ -std=c++17 julia_set.cpp -o julia_set",
+    "file": "julia_set.cpp"
+  }
+]
