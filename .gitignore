@@ -1,8 +1,13 @@
 sonar-project.properties
 .DS_Store
+.serena
+.scannerwork
+.claude
+.cache
 
 *.o
 *.d
 julia_set
+julia
 program
 output

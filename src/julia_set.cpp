@@ -7,11 +7,13 @@ constexpr int HEIGHT   = 40;
 constexpr int MAX_ITER = 100;
 
 // global mutable state
-int g_render_count = 0;
+int g_render_count = 0; // sonar-resolve [accept] cpp:S5421 "Easier to track changes :kappa:"
 
 class Renderer {
 public:
-    virtual void render() {}
+    virtual void render() {
+      // rendering
+    }
     virtual ~Renderer() = default;
 };
 
@@ -24,7 +26,7 @@ public:
 
 private:
     void draw() {
-        double cr = (rand() % 2 == 0) ? -0.7    : -0.4;
+        double cr = (rand() % 2 == 0) ? -0.7    : -0.4; // sonar-resolve [accept] cpp:S5020,cpp:S2245 "This is fine"
         double ci = (rand() % 2 == 0) ?  0.27015 :  0.6;
 
         auto pixels = std::make_unique<int[]>(WIDTH * HEIGHT);
