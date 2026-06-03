@@ -25,10 +25,26 @@ jobs:
           ]
           EOF
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@jh/SQSCANGHA-144_add_qa_gate_job
+        uses: SonarSource/sonarqube-scan-action@jh/SQSCANGHA-144_add_qa_gate_jobs
         with:
           args: >
             -Dsonar.scanner.sonarcloudUrl=${{ vars.SONAR_CLOUD_URL }}
             -Dsonar.scanner.apiBaseUrl=${{ vars.SONAR_API_BASE_URL }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  gate:
+    name: Build - gate
+    runs-on: ubuntu-latest
+    needs: [sonarqube]
+    if: always()
+    permissions: {}
+    steps:
+      - name: Check all jobs passed
+        env:
+          NEEDS_RESULT: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped') }}
+        run: |
+          if [[ "$NEEDS_RESULT" == "true" ]]; then
+            echo "One or more required jobs failed, were cancelled, or were skipped."
+            exit 1
+          fi
