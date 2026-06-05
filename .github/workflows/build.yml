@@ -24,8 +24,13 @@ jobs:
             }
           ]
           EOF
+      - name: Inspect tool cache
+        run: |
+          echo "RUNNER_TOOL_CACHE=$RUNNER_TOOL_CACHE"
+          ls -la "$RUNNER_TOOL_CACHE"
+          find "$RUNNER_TOOL_CACHE" -maxdepth 2 -mindepth 1 | sort
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@jh/SQSCANGHA-144_add_qa_gate_jobs
+        uses: SonarSource/sonarqube-scan-action@worktree-SQSCANGHA-135
         with:
           args: >
             -Dsonar.scanner.sonarcloudUrl=${{ vars.SONAR_CLOUD_URL }}
