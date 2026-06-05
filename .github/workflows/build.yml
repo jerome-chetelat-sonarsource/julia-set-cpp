@@ -30,7 +30,7 @@ jobs:
           ls -la "$RUNNER_TOOL_CACHE"
           find "$RUNNER_TOOL_CACHE" -maxdepth 2 -mindepth 1 | sort
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@worktree-SQSCANGHA-135
+        uses: SonarSource/sonarqube-scan-action@0368e05ab12cda7555b44a36d694dc4044545b29 # worktree-SQSCANGHA-135
         with:
           args: >
             -Dsonar.scanner.sonarcloudUrl=${{ vars.SONAR_CLOUD_URL }}
@@ -40,6 +40,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Inspect tool cache
+        if: always()
         run: |
           echo "RUNNER_TOOL_CACHE=$RUNNER_TOOL_CACHE"
           ls -la "$RUNNER_TOOL_CACHE"
